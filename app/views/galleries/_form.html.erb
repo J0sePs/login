@@ -1,0 +1,32 @@
+<!-- app/views/galleries/_form.html.erb -->
+<%= form_with(model: @gallery, local: true, class: 'mb-3') do |form| %>
+  <% if @gallery.errors.any? %>
+    <div class="alert alert-danger">
+      <h4><%= pluralize(@gallery.errors.count, "error") %> encontrado(s):</h4>
+      <ul>
+        <% @gallery.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :title, class: 'form-label' %>
+    <%= form.text_field :title, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :description, class: 'form-label' %>
+    <%= form.text_area :description, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :media, "Subir Imagen/Video", class: 'form-label' %>
+    <%= form.file_field :media, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.submit class: 'btn btn-primary' %>
+  </div>
+<% end %>

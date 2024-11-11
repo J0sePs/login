@@ -1,0 +1,21 @@
+<!-- app/views/galleries/show.html.erb -->
+<h1><%= @gallery.title %></h1>
+
+<!-- Mostrar imagen o video -->
+<% if @gallery.media.attached? %>
+  <% if @gallery.media.content_type.start_with?('image') %>
+    <%= image_tag url_for(@gallery.media), class: 'img-fluid', style: "max-width: 100%; height: auto;" %>
+  <% elsif @gallery.media.content_type.start_with?('video') %>
+    <%= video_tag url_for(@gallery.media), controls: true, class: 'w-100', style: "max-width: 500px;" %>
+  <% else %>
+    <p>El archivo no es una imagen ni un video soportado.</p>
+  <% end %>
+<% else %>
+  <p>No hay archivo multimedia adjunto.</p>
+<% end %>
+
+<!-- Descripción y enlaces -->
+<p><%= @gallery.description %></p>
+<%= link_to 'Editar', edit_gallery_path(@gallery), class: 'btn btn-warning' %>
+<%= link_to 'Eliminar', @gallery, method: :delete, data: { confirm: '¿Estás seguro?' }, class: 'btn btn-danger' %>
+<%= link_to 'Volver', galleries_path, class: 'btn btn-secondary' %>

@@ -1,0 +1,25 @@
+<!-- app/views/galleries/index.html.erb -->
+<h1>Galerías</h1>
+
+<%= link_to 'Nueva Galería', new_gallery_path, class: 'btn btn-success mb-3' %>
+
+<div class="row">
+  <% @galleries.each do |gallery| %>
+    <div class="col-md-4 mb-4">
+      <div class="card">
+        <% if gallery.media.attached? %>
+          <% if gallery.media.content_type.start_with?('image') %>
+            <%= image_tag url_for(gallery.media), class: 'card-img-top img-fluid', style: "max-height: 200px; object-fit: cover;" %>
+          <% elsif gallery.media.content_type.start_with?('video') %>
+            <%= video_tag url_for(gallery.media), controls: true, class: 'card-img-top', style: "max-height: 200px; object-fit: cover; width: 100%;" %>
+          <% end %>
+        <% end %>
+        <div class="card-body">
+          <h5 class="card-title"><%= gallery.title %></h5>
+          <p class="card-text"><%= gallery.description %></p>
+          <%= link_to 'Ver', gallery, class: 'btn btn-primary' %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
